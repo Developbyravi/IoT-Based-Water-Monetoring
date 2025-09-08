@@ -3,11 +3,142 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/water-drop-svgrepo-com.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PureDrop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, shrink-to-fit=no" />
+    
+    <!-- Primary Meta Tags -->
+    <title>PureDrop - Smart Water Quality Dashboard</title>
+    <meta name="title" content="PureDrop - Smart Water Quality Dashboard" />
+    <meta name="description" content="Advanced water quality monitoring dashboard with real-time sensor data, analytics, and intelligent alerts" />
+    <meta name="keywords" content="water quality, monitoring, dashboard, TDS, temperature, humidity, sensors, analytics" />
+    <meta name="author" content="PureDrop Team" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://puredrop.app/" />
+    <meta property="og:title" content="PureDrop - Smart Water Quality Dashboard" />
+    <meta property="og:description" content="Advanced water quality monitoring dashboard with real-time sensor data, analytics, and intelligent alerts" />
+    <meta property="og:image" content="/og-image.png" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://puredrop.app/" />
+    <meta property="twitter:title" content="PureDrop - Smart Water Quality Dashboard" />
+    <meta property="twitter:description" content="Advanced water quality monitoring dashboard with real-time sensor data, analytics, and intelligent alerts" />
+    <meta property="twitter:image" content="/twitter-image.png" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0ea5e9" />
+    <meta name="background-color" content="#0f172a" />
+    <meta name="display" content="standalone" />
+    <meta name="orientation" content="portrait-primary" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/icons/icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/icons/icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/icons/icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/icons/icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/icons/icon-57x57.png" />
+    
+    <!-- Apple Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="PureDrop" />
+    
+    <!-- Microsoft Meta Tags -->
+    <meta name="msapplication-TileColor" content="#0ea5e9" />
+    <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
+    <meta name="msapplication-navbutton-color" content="#0ea5e9" />
+    <meta name="msapplication-starturl" content="/" />
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' api.thingspeak.com; base-uri 'self'; form-action 'self';" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://api.thingspeak.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://api.thingspeak.com" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/main.jsx" as="script" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+              
+              // Check for updates
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                if (newWorker) {
+                  newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                      // New service worker available
+                      if (confirm('New version available! Reload to update?')) {
+                        window.location.reload();
+                      }
+                    }
+                  });
+                }
+              });
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+        
+        // Listen for service worker messages
+        navigator.serviceWorker.addEventListener('message', (event) => {
+          if (event.data && event.data.type === 'SYNC_COMPLETE') {
+            console.log('Background sync completed:', event.data.message);
+          }
+        });
+      }
+      
+      // Install prompt handling
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show custom install button (can be implemented in React component)
+        window.dispatchEvent(new CustomEvent('pwa-installable'));
+      });
+      
+      // Track installation
+      window.addEventListener('appinstalled', () => {
+        console.log('PWA was installed');
+        deferredPrompt = null;
+      });
+      
+      // Online/offline detection
+      window.addEventListener('online', () => {
+        console.log('Connection restored');
+        window.dispatchEvent(new CustomEvent('connection-restored'));
+      });
+      
+      window.addEventListener('offline', () => {
+        console.log('Connection lost');
+        window.dispatchEvent(new CustomEvent('connection-lost'));
+      });
+    </script>
   </body>
 </html>

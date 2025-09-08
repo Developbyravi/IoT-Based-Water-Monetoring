@@ -77,4 +77,171 @@
   .quality-button {
     @apply transition-all duration-200 hover:shadow-xl;
   }
+
+  /* Enhanced Mobile Responsive Utilities */
+  @media (max-width: 640px) {
+    .panel {
+      @apply p-4 mx-2;
+    }
+    
+    .gradient-text {
+      @apply text-lg;
+    }
+    
+    /* Mobile-first grid adjustments */
+    .mobile-grid-stack {
+      @apply grid-cols-1 gap-4;
+    }
+    
+    .mobile-card-compact {
+      @apply p-3 text-sm;
+    }
+  }
+  
+  @media (min-width: 641px) and (max-width: 768px) {
+    .tablet-grid {
+      @apply grid-cols-2 gap-5;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .desktop-grid {
+      @apply grid-cols-3 gap-6;
+    }
+  }
+  
+  /* Touch-friendly interactive elements */
+  @media (hover: none) and (pointer: coarse) {
+    .touch-target {
+      @apply min-h-[44px] min-w-[44px];
+    }
+    
+    .panel {
+      @apply p-4;
+    }
+    
+    /* Larger touch targets for mobile */
+    button {
+      @apply min-h-[44px] px-4;
+    }
+  }
+  
+  /* Improved focus visibility */
+  .focus-visible {
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent;
+  }
+  
+  /* Loading states */
+  .skeleton {
+    @apply animate-pulse bg-slate-200 dark:bg-slate-700 rounded;
+  }
+  
+  /* Smooth transitions for theme switching */
+  * {
+    @apply transition-colors duration-200;
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .panel {
+      @apply border-2 border-slate-900 dark:border-slate-100;
+    }
+    
+    .glassmorphic {
+      @apply bg-white dark:bg-slate-900 border-2;
+    }
+  }
+  
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      @apply animate-none;
+    }
+    
+    .transition-all {
+      @apply transition-none;
+    }
+  }
+  
+  /* Print styles */
+  @media print {
+    .panel {
+      @apply shadow-none border border-slate-400;
+    }
+    
+    .glassmorphic {
+      @apply bg-white border border-slate-400;
+    }
+    
+    .gradient-text {
+      @apply text-slate-900;
+    }
+  }
+
+  /* Welcome Splash Animations */
+  @keyframes ripple {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.4);
+      opacity: 0;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: 200px 0;
+    }
+  }
+
+  .welcome-ripple {
+    animation: ripple 2s ease-out infinite;
+  }
+
+  .welcome-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    background-size: 200px 100%;
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  /* Enhanced water wave animation */
+  @keyframes wave {
+    0%, 100% {
+      clip-path: polygon(0 70%, 15% 65%, 30% 60%, 45% 65%, 60% 70%, 75% 65%, 90% 60%, 100% 65%, 100% 100%, 0 100%);
+    }
+    50% {
+      clip-path: polygon(0 60%, 15% 65%, 30% 70%, 45% 65%, 60% 60%, 75% 65%, 90% 70%, 100% 65%, 100% 100%, 0 100%);
+    }
+  }
+
+  .water-wave {
+    animation: wave 3s ease-in-out infinite;
+  }
+
+  /* Floating particles effect */
+  @keyframes float-up {
+    0% {
+      transform: translateY(0) scale(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  .floating-particle {
+    animation: float-up 4s ease-out infinite;
+  }
 }
