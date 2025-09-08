@@ -12,51 +12,15 @@
   "lang": "en",
   "icons": [
     {
-      "src": "/icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "/water-drop-svgrepo-com.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ],
@@ -89,40 +53,19 @@
       "name": "Dashboard",
       "short_name": "Dashboard",
       "description": "View real-time water quality data",
-      "url": "/",
-      "icons": [
-        {
-          "src": "/icons/shortcut-dashboard.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
+      "url": "/"
     },
     {
       "name": "Analytics",
       "short_name": "Analytics", 
       "description": "View detailed analytics and trends",
-      "url": "/?section=analytics",
-      "icons": [
-        {
-          "src": "/icons/shortcut-analytics.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
+      "url": "/?section=analytics"
     },
     {
       "name": "Export Data",
       "short_name": "Export",
       "description": "Export water quality data",
-      "url": "/?section=export",
-      "icons": [
-        {
-          "src": "/icons/shortcut-export.png", 
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
+      "url": "/?section=export"
     }
   ],
   "protocol_handlers": [
